@@ -14,9 +14,33 @@ function deleteLast() {
 
 function calculate() {
     try {
-        // eval handles the string math calculation
         display.value = eval(display.value);
     } catch (error) {
         display.value = "Error";
     }
 }
+
+// Keyboard Support Logic
+document.addEventListener('keydown', (event) => {
+    const key = event.key;
+
+    // Handle numbers and operators
+    if (!isNaN(key) || ['+', '-', '*', '/', '.'].includes(key)) {
+        appendValue(key);
+    }
+
+    // Handle Enter key for calculation
+    if (key === 'Enter') {
+        calculate();
+    }
+
+    // Handle Backspace for deleting last character
+    if (key === 'Backspace') {
+        deleteLast();
+    }
+
+    // Handle Escape for clearing the display
+    if (key === 'Escape') {
+        clearDisplay();
+    }
+});
